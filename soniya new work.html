@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>first class html</title>
+  <link rel="icon" type="image/png" href="simple-twitter-16x16-icon-png-7.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="header" class="slidedown">
+    <h1>header</h1>
+  </div>
+  <div id="container">
+
+    <div id="sidebar">
+      <h1>sidebar</h1>
+    </div>
+    <div id="mainbox" style="display: flex; width: 100%; gap:10px">
+      <div class="grid-item slidedown" style="width: 30%">
+        <form id="taskform" onsubmit="event.preventDefault();" style="display:flex; flex-direction: column;gap: 4px;">
+          <label>task detail</label>
+          <input type="text" name="task" required id="taskField" />
+          <span style="color:red;" hidden id="taskErrorField"> this field is required</span>
+          <button type="button" id="submitBtn" onclick="saveTask()" class="submitBtn"
+            style="background-color: blue; color:white; padding: 10px; border: none; border-radius:  5px;">save</button>
+        </form>
+      </div>
+      <div id="boxList" style="width: 80%;display: flex; flex-direction: column; gap: 4px;" class="grid-item slidedown">
+
+      </div>
+    </div>
+</body>
+<script>
+  // syntax rule
+  // camelcase - taskField
+  // snake_case - task_field
+  // kebab-case - task-field
+  // pascal-case - TaskField
+
+  var tasks = [];
+  var editTaskId = null;
+
+
+  var taskErrorField = document.getElementById('taskErrorField');
+
+  function saveTask() {
+    debugger;
+    var taskVal = document.getElementById('taskField');
+
+    if (taskVal.validity.valueMissing) {
+      taskErrorField.hidden = false
+      return false
+    }
+    taskErrorField.hidden = true
+    if (editTaskId != null) {
+      tasks[editTaskId] = taskVal.value;
+      currentTaskId = editTaskId
+      var renderListElement = '';
+      tasks.forEach((x, index) => {
+        debugger;
+        renderListElement += `<div class='box' style='background-color: aqua;'>
+            <div style='padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;'>
+              <p>`+ x + `</p>
+              <div >
+                <button onclick='editTask(`+ index + `)'>
+                  Edit
+                </button>
+                <button onclick='deleteTask(`+ index + `)'>
+                  X
+                </button>
+              </div>
+            </div>
+          </div>`
+      })
+
+      var boxElement = document.getElementById('boxList');
+
+      boxElement.innerHTML = renderListElement;
+
+    }
+    else {
+      tasks.push(taskVal.value);
+      currentTaskId = tasks.length - 1
+
+      let listHtml = `<div class='box' style='background-color: aqua;'>
+            <div style='padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;'>
+              <p>`+ taskVal.value + `</p>
+              <div >
+                <button onclick='editTask(`+ currentTaskId + `)'>
+                  Edit
+                </button>
+                <button onclick='deleteTask(`+ currentTaskId + `)'>
+                  X
+                </button>
+              </div>
+            </div>
+          </div>`;
+
+      var boxElement = document.getElementById('boxList');
+
+      boxElement.innerHTML += listHtml;
+
+    }
+
+    taskVal.value = "";
+  }
+
+  // parameter used in function brackets
+  function editTask(id) {
+    debugger;
+    editTaskId = id;
+    var taskVal = document.getElementById('taskField');
+    taskVal.value = tasks[id];
+    var btnElement = document.getElementById('submitBtn');
+    btnElement.innerHTML = "Update";
+  }
+
+  function deleteTask(id) {
+    debugger;
+    tasks.splice(id, 1);
+    var renderListElement = '';
+    tasks.forEach((x, index) => {
+      debugger;
+      renderListElement += `<div class="box" style="background-color: aqua;">
+            <div style="padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;">
+              <p>`+ x + `</p>
+              <div >
+                <button onclick="editTask(`+ index + `)">
+                  Edit
+                </button>
+                <button onclick="deleteTask(`+ index + `)">
+                  X
+                </button>
+              </div>
+            </div>
+          </div>`
+    })
+    var boxElement = doucment.getElementById('boxList');
+
+    boxElement.innerHTML = renderListElement;
+  }
+</script>
+
+</html>
