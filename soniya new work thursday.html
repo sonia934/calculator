@@ -1,43 +1,89 @@
 <html>
 
 <head>
-  <title>first class html  thursday 6 </title>
-  <link rel='icon' type='image/png' href='simple-twitter-16x16-icon-png-7.png' />
-  <link rel="stylesheet" href='soniya.css' />
-  <style>
-    .discount-price {
-      text-decoration: line-through;
-      color: red;
-    }
+  <title>first class html thursday 6 </title>
+  <meta charset="UTF-8">
 
-    .actual-price {
-      color: green;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="tailwind2css.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'white': {
+              DEFAULT: '#E6E6E6',
+              50: '#FFFFFF',
+              100: '#FFFFFF',
+              200: '#FFFFFF',
+              300: '#FFFFFF',
+              400: '#FFFFFF',
+              500: '#E6E6E6',
+              600: '#D1D1D1',
+              700: '#BDBDBD',
+              800: '#A8A8A8',
+              900: '#949494',
+              950: '#8A8A8A'
+            },
+            'blue': {
+              DEFAULT: '#3B82F6',
+              50: '#BFD6FC',
+              100: '#B0CDFB',
+              200: '#93BAFA',
+              300: '#76A7F9',
+              400: '#5895F7',
+              500: '#3B82F6',
+              600: '#0B63F3',
+              700: '#094FC2',
+              800: '#073B91',
+              900: '#042761',
+              950: '#031D48'
+            },
+            'pink': {
+              DEFAULT: '#EC4899',
+              50: '#FBDAEA',
+              100: '#F9C9E0',
+              200: '#F6A9CE',
+              300: '#F389BC',
+              400: '#EF68AB',
+              500: '#EC4899',
+              600: '#E4187D',
+              700: '#B11262',
+              800: '#7F0D46',
+              900: '#4C082A',
+              950: '#32051C'
+            },
+            'gray': {
+              DEFAULT: '#6B7280',
+              50: '#B4B8C0',
+              100: '#ACB0BA',
+              200: '#9BA1AC',
+              300: '#8B919E',
+              400: '#7A8190',
+              500: '#6B7280',
+              600: '#565C67',
+              700: '#41454E',
+              800: '#2C2F35',
+              900: '#17191C',
+              950: '#0D0E0F'
+            },
+          }
+        }
+      }
     }
-
-    .paymentLabel {
-      display: flex;
-      align-items: center;
-    }
-
-    .total-amount {
-      padding: 10px;
-      background-color: #f0f0f0;
-      border-top: 1px solid #ccc;
-      color: blue;
-    }
-  </style>
+  </script>
 </head>
 
-<body>
-  <div id='header' class='slidedown'>
-    <h1>header</h1>
+<body class="bg-blue-400 flex flex-col text-blue-500-svh">
+  <div class="bg-red-200 p-8">
+    <h1 class="text-blue-700 text-4xl">header</h1>
   </div>
-  <div id='container'>
-    <div id='sidebar'>
-      <h1>sidebar</h1>
+  <div id='container' class="flex grow flex-column">
+    <div class="w-60 box-border p-6 bg-pink-50">
+      <h1 class="text-blue-500 text-2xl">sidebar</h1>
     </div>
-    <div id='mainbox' style='display: flex; width: 100%; gap:10px'>
-      <div class='grid-item slidedown' style='width: 30%'>
+    <div id='mainbox' class="flex w-full gap-2">
+      <div class='bg-pink-50 p-4 rounded-md shadow-2xl slideDown' style='width:30%'>
         <form id='ecommerceForm' onsubmit='event.preventDefault();'
           style='display:flex; flex-direction: column;gap: 4px;'>
           <label>checkout form</label>
@@ -66,26 +112,26 @@
           </select>
           <span style="color:red;" hidden id="taskErrorField-country"> This field is required</span>
           <div>
-            <label class="paymentLabel">
+            <label class="flex gap-2 blue-700">
               <input type='radio' name='payment_method' required id='payment_method_cash' checked />
               cash on Delivery
             </label>
-            <label class="paymentLabel">
+            <label class="flex gap-2">
               <input type='radio' name='payment_method' required id='payment_method_online' />
               online payment
             </label>
           </div>
-          <button type='button' onclick="submitcheckout()" id='submitBtn' class='submitBtn'
-            style='background-color: blue; color:white;padding:10px; border: none; border-radius:5px;'>checkout</button>
+          <button type='button' onclick="submitcheckout()" id='submitBtn'
+            class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>checkout</button>
         </form>
       </div>
       <label>cart Details</label>
-      <div id="boxlist" style="width:80%; display: flex; flex-direction: column; gap:4px;" class="grid-item slidedown">
+      <div id="boxlist" style="width:80%; display: flex; flex-direction: column; gap:2px;" class="grid-item slidedown">
         <!-- Cart items will be rendered here-->
       </div>
     </div>
   </div>
-  <div id='main'>
+  <div id='main' class="p-4 grid grow border-box grid-cols-4 gap-2">
     <!-- Products will be rendered here -->
   </div>
   </div>
@@ -287,16 +333,16 @@
       var cartDiv = document.getElementById('boxlist');
 
       checkoutForm.cart_details.forEach((x) => {
-        var priceBox = x.discounted_price < x.price ? `<div class='actual-price'>
-                        <span class='discount-price'> `+ x.price + `</span>
+        var priceBox = x.discounted_price < x.price ? `<div class='text-blue-700'>
+                        <span class='text-pink-600 line through'> `+ x.price + `</span>
                         `+ x.discounted_price + `
-                    </div>` : `<div class='actual-price'>
+                    </div>` : `<div class='text-blue-700'>
                         `+ x.price + `
                     </div>` ;
 
 
 
-        cartHtml += `<div class="box" style="background-color: aqua;">
+        cartHtml += `<div class="box" bg-pink-200 font-medium tex-blue-600">
                     <div style="padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;">
                         <p>`+ x.name + `</p>
                         `+ priceBox + `
@@ -304,7 +350,7 @@
                             Quantity `+ x.quantity + `
                         </div>
                         <div>
-                            <button onclick="removeItemCart(`+ x.id + `)">
+                            <button class="text-blue-500" onclick="removeItemCart(`+ x.id + `)">
                                 X
                             </button>
                         </div>
@@ -324,21 +370,21 @@
       var productDiv = document.getElementById('main');
 
       products.forEach((x) => {
-        var priceBox = x.discounted_price < x.price ? `<div class='actual-price'>
-                        <span class='discount-price'> `+ x.price + `</span>
+        var priceBox = x.discounted_price < x.price ? `<div class='text-blue-900'>
+                        <span class='text-blue-900 line through'> `+ x.price + `</span>
                         `+ x.discounted_price + `
-                    </div>` : `<div class='actual-price'>
+                    </div>` : `<div class='text-pink-500'>
                         `+ x.price + `
                     </div>` ;
 
 
-        productHtml += `<div class='grid-item slideDown'>
+        productHtml += `<div class='bg-blue-50 text-blue-700 p-4 rounded-md shadow-4xl slideDown''>
                     <h1>`+ x.name + `</h1>
                     <p>`+ x.description + `</p>
                     `+ priceBox + `
                     <div class='addToCartBox'>
                         <input type='number' id='qty`+ x.id + `'/>
-                        <button onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
+                        <button class='bg-pink-100 text-gray-200 font-medium rounded-1g w-32 py-1'onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
  
                     </div>
                 </div>`;

@@ -15,7 +15,7 @@ label {
   }
 
   #header{
-    background:red;
+    background: red;
     height: 80px;
     display:flex;
     align-items: center;
