@@ -72,8 +72,7 @@
     }
   </script>
 </head>
-
-<body class="bg-blue-200 flex flex-col text-blue-500 h-svh">
+<body class="bg-blue-200 flex flex-col text-blue-600 h-svh">
   <div class="bg-red-200 p-8">
     <h1 class="text-blue-700 text-4xl">header</h1>
   </div>
@@ -82,7 +81,7 @@
       <h1 class="text-blue-500 text-2xl">sidebar</h1>
     </div>
     <div id='mainbox' class="flex w-full gap-2">
-      <div class='bg-pink-50 p-4 rounded-md-2 shadow-2xl slideDown' style='width:30%'>
+      <div class='bg-pink-50 p-4 rounded-md shadow-2xl slideDown' style='width:30%'>
         <form id='ecommerceForm' onsubmit='event.preventDefault();'
           style='display:flex; flex-direction: column;gap: 4px;'>
           <label>checkout form</label>
@@ -121,7 +120,7 @@
             </label>
           </div>
           <button type='button' onclick="submitcheckout()" id='submitBtn'
-            class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md-2'>checkout</button>
+            class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>checkout</button>
         </form>
       </div>
       <label>cart Details</label>
@@ -377,13 +376,13 @@
                     </div>` ;
 
 
-        productHtml += `<div class='bg-blue-50 text-blue-700 p-4 rounded-md-2 shadow-4xl slideDown''>
+        productHtml += `<div class='bg-blue-50 text-blue-700 p-4 rounded-md shadow-4xl slideDown''>
                     <h1>`+ x.name + `</h1>
                     <p>`+ x.description + `</p>
                     `+ priceBox + `
                     <div class='addToCartBox'>
                         <input type='number' id='qty`+ x.id + `'/>
-                        <button class='bg-pink-100 text-gray-200 font-medium rounded-1g-5 w-32 py-1'onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
+                        <button class='bg-pink-100 text-gray-200 font-medium rounded-1g w-32 py-1'onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
  
                     </div>
                 </div>`;
