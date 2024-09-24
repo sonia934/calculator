@@ -1,0 +1,394 @@
+<html>
+
+<head>
+  <title>first class html thursday 6 </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="tailwind2css.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'white': {
+              DEFAULT: '#E6E6E6',
+              50: '#FFFFFF',
+              100: '#FFFFFF',
+              200: '#FFFFFF',
+              300: '#FFFFFF',
+              400: '#FFFFFF',
+              500: '#E6E6E6',
+              600: '#D1D1D1',
+              700: '#BDBDBD',
+              800: '#A8A8A8',
+              900: '#949494',
+              950: '#8A8A8A'
+            },
+            'blue': {
+              DEFAULT: '#3B82F6',
+              50: '#BFD6FC',
+              100: '#B0CDFB',
+              200: '#93BAFA',
+              300: '#76A7F9',
+              400: '#5895F7',
+              500: '#3B82F6',
+              600: '#0B63F3',
+              700: '#094FC2',
+              800: '#073B91',
+              900: '#042761',
+              950: '#031D48'
+            },
+            'pink': {
+              DEFAULT: '#EC4899',
+              50: '#FBDAEA',
+              100: '#F9C9E0',
+              200: '#F6A9CE',
+              300: '#F389BC',
+              400: '#EF68AB',
+              500: '#EC4899',
+              600: '#E4187D',
+              700: '#B11262',
+              800: '#7F0D46',
+              900: '#4C082A',
+              950: '#32051C'
+            },
+            'gray': {
+              DEFAULT: '#6B7280',
+              50: '#B4B8C0',
+              100: '#ACB0BA',
+              200: '#9BA1AC',
+              300: '#8B919E',
+              400: '#7A8190',
+              500: '#6B7280',
+              600: '#565C67',
+              700: '#41454E',
+              800: '#2C2F35',
+              900: '#17191C',
+              950: '#0D0E0F'
+            },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-blue-200 flex flex-col text-blue-600 h-svh">
+  <div class="bg-red-200 p-8">
+    <h1 class="text-blue-700 text-4xl">header</h1>
+  </div>
+  <div id='container' class="flex grow flex-column">
+    <div class="w-60 box-border p-6 bg-pink-50">
+      <h1 class="text-blue-500 text-2xl">sidebar</h1>
+    </div>
+    <div id='mainbox' class="flex w-full gap-2">
+      <div class='bg-pink-50 p-4 rounded-md shadow-2xl slideDown' style='width:30%'>
+        <form id='ecommerceForm' onsubmit='event.preventDefault();'
+          style='display:flex; flex-direction: column;gap: 4px;'>
+          <label>checkout form</label>
+          <input type='text' name='first_name' required id='first_name' placeholder="Enter your first_name" />
+          <span style='color:red;' hidden id='taskErrorField-first_name'>This field is required</span>
+          <input type='text' name='last_name' required id='last_name' placeholder="Enter your last_name" />
+          <span style='color: red;' hidden id='taskErrorField-last_name'>This field is required</span>
+          <input type='tel' name='number' required id='number' placeholder="Enter your phone_number" />
+          <span style='color: red;' hidden id='taskErrorField-phone_number'>This field is required</span>
+          <input type='textarea' name='address' required id='address' placeholder="Enter your address" /></textarea>
+          <span style='color: red;' hidden id='taskErrorField-address'>This field is required</span>
+          <input type='text' name='email' required id='email' placeholder="Enter your email" />
+          <span style='color: red;' hidden id='taskErrorField-email'>This field is required</span>
+          <input type='text' name='postal_code' required id='postal_code' placeholder="Enter your postal_code" />
+          <span style='color: red;' hidden id='taskErrorField-postal_code'>This field is required</span>
+          <select id="city" name="city">
+            <option value="karachi" selected>Karachi</option>
+            <option>Lahore</option>
+            <option>Islamabed</option>
+            <option>Peshawar</option>
+            <option>Queta</option>
+          </select>
+          <span style="color:red;" hidden id="taskErrorField-city"> This field is required</span>
+          <select id="country" name="country">
+            <option selected>pakistan</option>
+          </select>
+          <span style="color:red;" hidden id="taskErrorField-country"> This field is required</span>
+          <div>
+            <label class="flex gap-2 blue-700">
+              <input type='radio' name='payment_method' required id='payment_method_cash' checked />
+              cash on Delivery
+            </label>
+            <label class="flex gap-2">
+              <input type='radio' name='payment_method' required id='payment_method_online' />
+              online payment
+            </label>
+          </div>
+          <button type='button' onclick="submitcheckout()" id='submitBtn'
+            class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>checkout</button>
+        </form>
+      </div>
+      <label>cart Details</label>
+      <div id="boxlist" style="width:80%; display: flex; flex-direction: column; gap:2px;" class="grid-item slidedown">
+        <!-- Cart items will be rendered here-->
+      </div>
+    </div>
+  </div>
+  <div id='main' class="p-4 grid grow border-box grid-cols-4 gap-2">
+    <!-- Products will be rendered here -->
+  </div>
+      </div>
+</body>
+  <script>
+    var initialcheckoutForm = {
+      first_name: '',
+      last_name: '',
+      phone_number: 0,
+      address: '',
+      email: '',
+      postal_code: '',
+      city: '',
+      country: '',
+      payment_method: '',
+      shipping_details: {
+        address: '',
+        city: '',
+        postal_code: '',
+        country: '',
+        phone_number: '',
+        reciever_name: '',
+      },
+      total_amount: '',
+      cart_details: [],
+    }
+
+    var checkoutForm = {
+      first_name: '',
+      last_name: '',
+      phone_number: '',
+      address: '',
+      email: '',
+      postal_code: '',
+      city: '',
+      country: '',
+      payment_method: '',
+      shipping_details: {
+        address: '',
+        city: '',
+        postal_code: '',
+        country: '',
+        phone_number: '',
+        reciever_name: '',
+      },
+      total_amount: '',
+      cart_details: [],
+    }
+
+    var products = [
+      {
+        id: 1,
+        name: ' water bottle',
+        description: 'color: blue size: large',
+        price: 100,
+        discounted_price: 99,
+      },
+      {
+        id: 2,
+        name: ' mouse',
+        description: 'wired usb port',
+        price: 250,
+        discounted_price: 199,
+      },
+      {
+        id: 3,
+        name: ' watch',
+        description: 'color: black, watch type: smart, brand: apple,',
+        price: 5000,
+        discounted_price: 4999,
+      },
+      {
+        id: 4,
+        name: ' infinix',
+        description: 'color: blue, storage: 120gb ram:2gb display:6x4',
+        price: 25000,
+        discounted_price: 24999,
+      },
+      {
+        id: '5',
+        name: ' shoes',
+        description: 'size: 8, color: blue, type: sport wear',
+        price: 3000,
+        discounted_price: '3000',
+      },
+    ];
+    renderProducts();
+
+    function validateFields() {
+      debugger;
+      var basicFields = [
+        'first_name',
+        'last_name',
+        'address',
+        'postal_code',
+      ]
+      const basicValidation = () => {
+        var checkValidation = true;
+        basicFields.forEach((x) => {
+          if (document.getElementById(x).value == '' || document.getElementById(x).value == null) {
+            checkValidation = false;
+            document.getElementById('taskErrorField-' + x).hidden = false
+          } else {
+            document.getElementById('taskErrorField-' + x).hidden = true
+          }
+        })
+        return checkValidation
+      }
+
+
+      var testBasicValidation = basicValidation();
+      if (!testBasicValidation) {
+        return false
+      }
+      const validatePhoneNumber = (phoneNumber) => {
+        const regex = /^(\+92|92|033|03)[ -]*\d{3}[ -]*\d{7}$/;
+        return regex.test(phoneNumber);
+      }
+
+
+      if (!validatePhoneNumber(document.getElementById('number').value)) {
+        document.getElementById('taskErrorField-phone_number').hidden = false
+        return false
+      } else {
+        document.getElementById('taskErrorField-phone_number').hidden = true
+      }
+      const validateEmail = (email) => {
+        const regex = /^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+      }
+      if (!validateEmail(document.getElementById('email').value)) {
+        document.getElementById('taskErrorField-email').hidden = false
+        return false;
+      } else {
+        document.getElementById('taskErrorField-email').hidden = true
+      }
+
+      if (checkoutForm.cart_details.lenght == 0) {
+        alert("please add items in your cart first");
+      }
+      return true;
+    }
+
+
+    function submitcheckout() {
+      debugger;
+      const checkForm = validateFields();
+      if (checkForm) {
+        alert("thankyou for shopping with us");
+        checkoutForm = initialcheckoutForm;
+        document.getElementById('ecommerceForm').reset();
+        renderCarts();
+      }
+
+    }
+
+    function addToCart(product) {
+      debugger;
+      var currentProduct = products.find((x) => { return x.id == product });
+      var currentQty = document.getElementById('qty' + product).value == '' || document.getElementById('qty' + product).value == null ? 1 : document.getElementById('qty' + product).value;
+      var cartExistIndex = checkoutForm.cart_details.findIndex((x) => { return x.id == product });
+      if (cartExistIndex != -1) {
+        checkoutForm.cart_details[cartExistIndex].quantity += parseInt(currentQty);
+      }
+      else {
+        var cartItem = {
+          ...currentProduct,
+          quantity: currentQty,
+        }
+
+        checkoutForm.cart_details.push(cartItem);
+      }
+
+      document.getElementById('qty' + product).value = '';
+      renderCarts();
+    }
+    /**
+    *This function is used to remove items from cart
+    * @params  number id 
+   * return void | null
+   */
+    function removeItemCart(id) {
+      debugger;
+      var proIndex = checkoutForm.cart_details.findIndex((x) => { return x.id == id });
+      checkoutForm.cart_details.splice(proIndex, 1);
+
+      renderCarts();
+
+    }
+    function calculateTotal() {
+      return checkoutForm.cart_details.reduce((total, item) => {
+        return total + (item.discounted_price < item.price ? item.discounted_price : item.price) * item.quantity;
+      }, 0);
+    }
+
+    function renderCarts() {
+      let cartHtml = '';
+      let totalAmount = calculateTotal();
+      var cartDiv = document.getElementById('boxlist');
+
+      checkoutForm.cart_details.forEach((x) => {
+        var priceBox = x.discounted_price < x.price ? `<div class='text-blue-700'>
+                        <span class='text-pink-600 line through'> `+ x.price + `</span>
+                        `+ x.discounted_price + `
+                    </div>` : `<div class='text-blue-700'>
+                        `+ x.price + `
+                    </div>` ;
+
+
+
+        cartHtml += `<div class="box" bg-pink-200 font-medium tex-blue-600">
+                    <div style="padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;">
+                        <p>`+ x.name + `</p>
+                        `+ priceBox + `
+                        <div>
+                            Quantity `+ x.quantity + `
+                        </div>
+                        <div>
+                            <button class="text-blue-500" onclick="removeItemCart(`+ x.id + `)">
+                                X
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+      });
+      // Append the total amount to the cart HTML 
+      cartHtml += `<div class="total-amount">
+                <strong>Total Amount: </strong> ` + totalAmount.toFixed(2) + `
+            </div>`;
+
+      cartDiv.innerHTML = cartHtml;
+    }
+
+    function renderProducts() {
+      let productHtml = '';
+      var productDiv = document.getElementById('main');
+
+      products.forEach((x) => {
+        var priceBox = x.discounted_price < x.price ? `<div class='text-blue-900'>
+                        <span class='text-blue-900 line through'> `+ x.price + `</span>
+                        `+ x.discounted_price + `
+                    </div>` : `<div class='text-pink-500'>
+                        `+ x.price + `
+                    </div>` ;
+
+
+        productHtml += `<div class='bg-blue-50 text-blue-700 p-4 rounded-md shadow-4xl slideDown''>
+                    <h1>`+ x.name + `</h1>
+                    <p>`+ x.description + `</p>
+                    `+ priceBox + `
+                    <div class='addToCartBox'>
+                        <input type='number' id='qty`+ x.id + `'/>
+                        <button class='bg-pink-100 text-gray-200 font-medium rounded-1g w-32 py-1'onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
+ 
+                    </div>
+                </div>`;
+      });
+      productDiv.innerHTML = productHtml;
+    }
+  </script>
+  
+</html>
