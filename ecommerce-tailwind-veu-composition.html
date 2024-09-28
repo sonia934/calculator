@@ -74,7 +74,7 @@
 </head>
   </head>
 
-  <body id="app" class="bg-blue-200 flex flex-col text-blue-600 h-svh">
+  <body id="app" class="bg-blue-50 flex flex-col text-blue-600 h-svh">
     <div class="bg-red-200 p-8">
       <h1 class="text-blue-700 text-4xl">{{ message }}</h1>
       <button @click="changesMsg">Change me</button>
@@ -86,7 +86,7 @@
       <div id="mainBox" class="flex w-full gap-2">
         <div
           class="bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown"
-          style="width: 38%"
+          style="width: 30%"
         >
           <form
             id="ecommerceForm"
@@ -206,7 +206,7 @@
               type="button"
               @click="sumbitCheckout()"
               id="submitBtn"
-              class="bg-pinl-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md"
+              class="bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-blue-700 rounded-md"
             >
               Checkout
             </button>
@@ -223,7 +223,7 @@
               "
               class="grid-item slideDown"
             >
-            <div class="box bg-red-50 font-medium text-blue-900">
+            <div class="box bg-pink-50 font-medium text-blue-900">
               <div
                 style="
                   padding-left: 10px;
@@ -237,18 +237,18 @@
               >
                 <p>{{ x.name}}</p>
                 <div
-                  class="text-seaGreen-500"
+                  class="text-blue-700"
                   v-if="x.discounted_price < x.price"
                 >
-                  <span class="text-red-600 line-through" :data-id="x.id">
+                  <span class="text-pink-600 line-through" :data-id="x.id">
                     {{x.price}}
                   </span>
                   {{x.discounted_price}}
                 </div>
-                <div class="text-seaGreen-500" v-else>{{x.price}}</div>
+                <div class="text-blue-700" v-else>{{x.price}}</div>
                 <div>{{'Quantity '+ x.quantity }}</div>
                 <div>
-                  <button class="text-red-500" @click="removeItemCart(x.id)">
+                  <button class="text-pink-500" @click="removeItemCart(x.id)">
                     X
                   </button>
                 </div>
@@ -265,15 +265,15 @@
             <h1 class="font-bold">{{ x.name }}</h1>
             <p class="font-medium">{{ x.description }}</p>
 
-            <div class="text-seaGreen-500" v-if="x.discounted_price < x.price">
-              <span class="text-red-600 line-through">{{ x.price }}</span>
+            <div class="text-blue-600" v-if="x.discounted_price < x.price">
+              <span class="text-pink-500  line-through">{{ x.price }}</span>
               {{ x.discounted_price }}
             </div>
-            <div class="text-seaGreen-500" v-else>{{ x.price }}</div>
+            <div class="text-blue-600" v-else>{{ x.price }}</div>
             <div class="">
               <input type="number" :id='"qty"+ x.id' />
               <button
-                class="bg-blue-400 text-white-200 font-medium rounded-lg w-32 py-1"
+                class="bg-blue-200 text-white-200 font-medium rounded-lg w-30 py-1"
                 @click="addToCart(x.id)"
               >
                 Add to Cart

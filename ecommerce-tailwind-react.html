@@ -7,98 +7,87 @@
     <script src="js/react-dev.js"></script>
     <script src="js/react-dom.js"></script>
     <script src="tailwindcss.js"></script>
-    <script>
+    <!-- Assignment react todo app through cdn using redux, redux state management tool it stores your data in localstorage -->
+    <!-- Reference Link mentioned below -->
+    <!-- https://gist.github.com/erspark2002/0ea49cc782049df5f3de271ba9ff41e1 --> 
+  <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'blue': {
-                            DEFAULT: '#353887',
-                            50: '#9C9ED8',
-                            100: '#8D90D2',
-                            200: '#7073C7',
-                            300: '#5256BB',
-                            400: '#4144A4',
-                            500: '#353887',
-                            600: '#25275F',
-                            700: '#151736',
-                            800: '#06060E',
-                            900: '#000000',
-                            950: '#000000'
-                        },
-                        'red': {
-                            DEFAULT: '#CF2E39',
-                            50: '#FEFBFB',
-                            100: '#F9E4E6',
-                            200: '#EFB6BA',
-                            300: '#E5898F',
-                            400: '#DA5B63',
-                            500: '#CF2E39',
-                            600: '#A9262F',
-                            700: '#841D24',
-                            800: '#5E151A',
-                            900: '#390D10',
-                            950: '#26080A'
-                        },
-                        'white': {
-                            DEFAULT: '#E8E8E8',
-                            50: '#FFFFFF',
-                            100: '#FCFCFC',
-                            200: '#F7F7F7',
-                            300: '#F2F2F2',
-                            400: '#EDEDED',
-                            500: '#E8E8E8',
-                            600: '#CCCCCC',
-                            700: '#B0B0B0',
-                            800: '#949494',
-                            900: '#787878',
-                            950: '#6A6A6A'
-                        },
-                        'black': {
-                            DEFAULT: '#0F0F0F',
-                            50: '#6B6B6B',
-                            100: '#616161',
-                            200: '#4D4D4D',
-                            300: '#383838',
-                            400: '#242424',
-                            500: '#0F0F0F',
-                            600: '#0A0A0A',
-                            700: '#050505',
-                            800: '#000000',
-                            900: '#000000',
-                            950: '#000000'
-                        },
-                        'seaGreen': {
-                            DEFAULT: '#31A24C',
-                            50: '#A6E4B5',
-                            100: '#97DFA8',
-                            200: '#77D68E',
-                            300: '#58CD74',
-                            400: '#3AC15B',
-                            500: '#31A24C',
-                            600: '#247738',
-                            700: '#174C24',
-                            800: '#0A210F',
-                            900: '#000000',
-                            950: '#000000'
-                        },
-                    }
-                }
-            }
+            'white': {
+              DEFAULT: '#E6E6E6',
+              50: '#FFFFFF',
+              100: '#FFFFFF',
+              200: '#FFFFFF',
+              300: '#FFFFFF',
+              400: '#FFFFFF',
+              500: '#E6E6E6',
+              600: '#D1D1D1',
+              700: '#BDBDBD',
+              800: '#A8A8A8',
+              900: '#949494',
+              950: '#8A8A8A'
+            },
+            'blue': {
+              DEFAULT: '#3B82F6',
+              50: '#BFD6FC',
+              100: '#B0CDFB',
+              200: '#93BAFA',
+              300: '#76A7F9',
+              400: '#5895F7',
+              500: '#3B82F6',
+              600: '#0B63F3',
+              700: '#094FC2',
+              800: '#073B91',
+              900: '#042761',
+              950: '#031D48'
+            },
+            'pink': {
+              DEFAULT: '#EC4899',
+              50: '#FBDAEA',
+              100: '#F9C9E0',
+              200: '#F6A9CE',
+              300: '#F389BC',
+              400: '#EF68AB',
+              500: '#EC4899',
+              600: '#E4187D',
+              700: '#B11262',
+              800: '#7F0D46',
+              900: '#4C082A',
+              950: '#32051C'
+            },
+            'gray': {
+              DEFAULT: '#6B7280',
+              50: '#B4B8C0',
+              100: '#ACB0BA',
+              200: '#9BA1AC',
+              300: '#8B919E',
+              400: '#7A8190',
+              500: '#6B7280',
+              600: '#565C67',
+              700: '#41454E',
+              800: '#2C2F35',
+              900: '#17191C',
+              950: '#0D0E0F'
+            },
+          }
         }
-    </script>
+      }
+    }
+  </script>
 </head>
 
-<body id="app" class="bg-white-50 flex flex-col text-blue-900 h-svh">
+<body id="app" class="bg-blue-50 flex flex-col text-blue-600 h-svh">
     <div class="bg-red-50 p-8">
-        <h1 class="text-blue-500 text-6xl" id="headerComponent"> {{ message }}</h1>
+        <h1 class="text-blue-700 text-4xl" id="headerComponent"> {{ message }}</h1>
     </div>
     <div id='container' class="flex grow flex-column">
-        <div class="w-72 box-border p-8 bg-red-100">
-            <h1 class="text-blue-400 text-2xl">Sidebar</h1>
+        <div class="w-60 box-border p-6 bg-pink-50">
+            <h1 class="text-blue-500 text-2xl">Sidebar</h1>
         </div>
-        <div id='mainBox' class="flex w-full gap-4">
-            <div class='bg-white-500 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
+        <div id='mainBox' class="flex w-full gap-2">
+            <div class='bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
                 <form id='ecommerceForm' onsubmit='event.preventDefault();'
                     style='display: flex; flex-direction:column; gap: 4px; '>
                     <label>Checkout Form</label>
@@ -139,7 +128,7 @@
                             Online Payment
                         </label>
                     </div>
-                    <button type='button' onclick="sumbitCheckout()" id='submitBtn' class='bg-blue-600 text-white-200 p-2 border-0 hover:bg-blue-700 active:bg-blue-700 rounded-md'>Checkout</button>
+                    <button type='button' onclick="sumbitCheckout()" id='submitBtn' class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>Checkout</button>
                 </form>
                 <div>
                     <label>Cart Details</label>
@@ -149,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div id='main' class="p-4 grid grow border-box grid-cols-2 gap-4">
+            <div id='main' class="p-4 grid grow border-box grid-cols-4 gap-2">
 
             </div>
         </div>
@@ -344,14 +333,14 @@
         let cartHtml = '';
         var cartDiv = document.getElementById('boxList');
         checkoutForm.cart_details.forEach((x) => {
-            var priceBox = x.discounted_price < x.price ? `<div class='text-seaGreen-500'>
-                        <span class='text-red-600 line-through'> `+ x.price + `</span>
+            var priceBox = x.discounted_price < x.price ? `<div class='text-blue-700'>
+                        <span class='text-pink-600 line-through'> `+ x.price + `</span>
                         `+ x.discounted_price + `
-                    </div>` : `<div class='text-seaGreen-500'>
+                    </div>` : `<div class='text-blue-700'>
                         `+ x.price + `
                     </div>` ;
 
-            cartHtml += `<div class="box bg-red-50 font-medium text-blue-900">
+            cartHtml += `<div class="box bg-pink-200 font-medium text-blue-600">
                     <div style="padding-left:10px; border-radius: 50%; padding-right: 10px; display:flex; justify-content: space-between; align-items: center;">
                         <p >`+ x.name + `</p>
                         `+ priceBox + `
@@ -359,7 +348,7 @@
                             Quantity `+ x.quantity + `
                         </div>
                         <div>
-                            <button class="text-red-500" onclick="removeItemCart(`+ x.id + `)">
+                            <button class="text-blue-500" onclick="removeItemCart(`+ x.id + `)">
                                 X
                             </button>
                         </div>
@@ -372,19 +361,19 @@
         let productHtml = '';
         var productDiv = document.getElementById('main');
         products.forEach((x) => {
-            var priceBox = x.discounted_price < x.price ? `<div class='text-seaGreen-500'>
-                        <span class='text-red-600 line-through'> `+ x.price + `</span>
+            var priceBox = x.discounted_price < x.price ? `<div class='text-blue-900'>
+                        <span class='text-blue-900 line-through'> `+ x.price + `</span>
                         `+ x.discounted_price + `
-                    </div>` : `<div class='text-seaGreen-500'>
+                    </div>` : `<div class='text-pink-500'>
                         `+ x.price + `
                     </div>` ;
-            productHtml += `<div class='bg-white-500 text-black-500 p-4 rounded-md shadow-2xl slideDown'>
+            productHtml += `<div class='bg-blue-50 text-blue-700 p-4 rounded-md shadow-2xl slideDown'>
                     <h1 class='font-bold'>`+ x.name + `</h1>
                     <p class='font-medium'>`+ x.description + `</p>
                     `+ priceBox + `
                     <div class=''>
                         <input type='number' id='qty`+ x.id + `'/>
-                        <button class='bg-blue-400 text-white-200 font-medium rounded-lg w-32 py-1' onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
+                        <button class='bg-pink-100 text-gray-200 font-medium rounded-lg w-32 py-1' onclick='addToCart(`+ x.id + `)'>Add to Cart</button>
 
                     </div>
                 </div>`;
