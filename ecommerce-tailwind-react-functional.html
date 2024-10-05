@@ -112,8 +112,93 @@
         // <div class="px-2 py-2 w-10"> this will not render
         // <div className="px-2 py-2 w-10">
 
-            const ProductBox = () => {
-            const products = [
+            const ProductBox = ({price, discounted_price}) => {
+            const calculatePrice = discounted_price < price;
+            if(calculatePrice) {
+                return (
+                    <div className="text-text-blue-500">
+                        <span className="text-pink-600 line-through">{price}</span>
+                        {discounted_price}
+                        </div>
+                     )
+                 }
+                 return (
+                    <div className="text-blue-500">{price}</div>
+                 )
+            }
+            const  ProductBox = ({product, checkForm, updateCart, ...rest}) => {
+                const addToCart = (product) => {
+                    var currentProduct = product.find((x) => {
+                        return x.id == product;
+                    });
+                    var currentQty =Application
+                    document.getElementById("qty" + product).value == "" ||
+                    document.getElementById("qty" + product).value == null
+                    ? 1
+                    : document.getElementById("qty" + product).value;
+                    cartExistIndex = checkoutForm.cart_details.findIndex((x) => {
+                        return x.id == product;
+                     });
+                     if (cartExistIndex != -1) {
+                        checkoutForm.cart_details[cartExistIndex].quantity +=
+                        parseInt(currentQty);
+                       } else {
+                        var cartItem = {
+                            ...currentProduct,
+                            quantity: currentQty,
+                        };
+                        checkoutForm.cart_details.push(cartItem);
+                       }
+                       updateCart (checkoutForm.cart_details);
+                       document.getElementById("qty" + product).value = "";
+                }
+                return (
+                            <div className="bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown">
+                              <h1 className="font-bold">{product.name} </h1>
+                              <p className="font-medium">{product.description}</p>
+                              <PriceBox price={product.price} discounted_price={product.discounted_price}/>
+                              
+                              
+                              <div className="">
+                                <input type="number" id={"qty"+ x.id} />
+                                <button
+                                    className="bg-blue-400 text-white-200 font-medium rounded-1g w-32 py-1"
+                                    onClick={()=>{addToCart(product.id) }}>
+                                    Add to cart
+                                    </button>
+                                    </div>
+                                 </div>
+
+                        )
+                    }
+                    const CartBox = ({name, price, discounted_price, quantity, ...cartDetails}) => {
+
+                        return (
+                            <div className="box bg-pink-50 font-medium text-blue-500">
+                                <div style={{
+                                    "padding-left":"10px", 'border-radius': '50%', 'padding-right': '10px', 'display':'flex', 'justify-content': 'space-between', 'align-items': 'center'
+                                }}>
+                                <p >{name}</p>
+                                <priceBox price={price} discounted_price={discounted_price}/>
+                                <div>
+                                    Quantity {quantity}
+                                    </div>
+                                    <div>
+                                        <button className="text-pink-500">
+                                            x
+                                            </button>
+                                            </div>
+                                            </div>
+                                            </div>
+                        )
+                    }
+
+                    const ProductList = ({updateCart,  checkoutForm }) => {
+      const [checkFormVal, setCheckFormVal] = React.useState(checkoutForm);
+        const products = [
+
+            
+            
             {
                 id: 1,
                 name: 'water bottle',
@@ -155,7 +240,7 @@
             return (
                 <>
                 {
-                    products.map((x) => {
+                    products.map((x, index) => {
                         return (
                             <div className="bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown">
                               <h1 className="font-bold">{x.name} </h1>
@@ -170,39 +255,58 @@
                                 <input type="number" id='"qty"+ x.id' />
                                 <button
                                     className="bg-blue-400 text-white-200 font-medium rounded-1g w-32 py-1"
-                                    onClick={()=>{addToCart(x.id) }}
-                                    >
+                                    onClick={()=>{addToCart(x.id) }}>
+                                    Add to cart
+                                    </button>
+                                    </div>
+                                 </div>
 
                         )
                     })
                 }
+                </>
             )
-            }
-    <div class="bg-red-50 p-8">
-        <h1 class="text-blue-700 text-4xl" id="headerComponent"> {{ message }}</h1>
-    </div>
-    <div id='container' class="flex grow flex-column">
-        <div class="w-60 box-border p-6 bg-pink-50">
-            <h1 class="text-blue-500 text-2xl">Sidebar</h1>
+         }
+
+         const Application =() => {
+            const [message, setMessage] = React.useState('Hello React!');
+
+            let newMesg = "This is Let";
+            const changeMessageValue = (newVal) => {
+                setMessage = "This has been changed also";
+              }
+
+              return (
+                <>
+                <div className="bg-red-50 p-8">
+                    <h1 className="text-blue-500 text-6xl"> {message}</h1>
+                    <h1 className="text-blue-500 text-6xl"> {newMesg}</h1>
+                    <button onclick={()=>{changeMessageValue("This has been changed") }}>
+                        change me please!
+                        </button>
+                        </div>
+               <div id='container' className="flex grow flex-column">
+        <div className="w-60 box-border p-6 bg-pink-50">
+            <h1 className="text-blue-500 text-2xl">Sidebar</h1>
         </div>
-        <div id='mainBox' class="flex w-full gap-2">
-            <div class='bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
-                <form id='ecommerceForm' onsubmit='event.preventDefault();'
-                    style='display: flex; flex-direction:column; gap: 4px; '>
+        <div id='mainBox' className="flex w-full gap-2">
+            <div className='bg-pink-50 text-black-500 p-4 rounded-md shadow-2xl slideDown' style='width: 30%;'>
+                <form id='ecommerceForm' 
+                    style={{display: "flex", "flex-direction": "column", gap : "4px"}}>
                     <label>Checkout Form</label>
                     <input type='text' name='first_name' required id='first_name' placeholder="Enter you first_name" />
-                    <span style='color:red;' hidden id='taskErrorField-first_name'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-first_name'>This field is required</span>
                     <input type='text' name='last_name' required id='last_name' placeholder="Enter you last_name" />
-                    <span style='color:red;' hidden id='taskErrorField-last_name'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-last_name'>This field is required</span>
                     <input type='tel' name='number' required id='number' placeholder="Enter you phone_number" />
-                    <span style='color:red;' hidden id='taskErrorField-number'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-number'>This field is required</span>
                     <textarea id="address" name="address" placeholder="enter your full address"></textarea>
-                    <span style='color:red;' hidden id='taskErrorField-address'>This field is required</span>
+                    <span style={{color:'red'}} hidden id='taskErrorField-address'>This field is required</span>
                     <input type='email' name='email' required id='email' placeholder="Enter you email" />
-                    <span style='color:red;' hidden id='taskErrorField-email'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-email'>This field is required</span>
                     <input type='text' name='postal_code' required id='postal_code'
                         placeholder="Enter you postal_code" />
-                    <span style='color:red;' hidden id='taskErrorField-postal_code'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-postal_code'>This field is required</span>
                     <select id="city" name="city">
                         <option selected>Karachi</option>
                         <option>Lahore</option>
@@ -210,14 +314,14 @@
                         <option>Peshawar</option>
                         <option>Queta</option>
                     </select>
-                    <span style='color:red;' hidden id='taskErrorField-city'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-city'>This field is required</span>
                     <select id="country" name="country">
                         <option selected>Pakistan</option>
                     </select>
-                    <span style='color:red;' hidden id='taskErrorField-country'>This field is required</span>
+                    <span style={{color: 'red'}} hidden id='taskErrorField-country'>This field is required</span>
                     <div>
                         <label class="flex gap-2 blue-700">
-                            <input type='radio' name='task' required id='payment_method' checked
+                            <input type='radio' name='task' required id='payment_method' defaultchecked={true}
                                 placeholder="Enter you payment_method" />
                             Cash on Delivery
                         </label>
@@ -227,111 +331,104 @@
                             Online Payment
                         </label>
                     </div>
-                    <button type='button' onclick="sumbitCheckout()" id='submitBtn' class='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>Checkout</button>
+                    <button type='button' id='submitBtn' className ='bg-pink-400 text-white-200 p-2 border-0 hover:bg-pink-700 active:bg-pink-700 rounded-md'>Checkout</button>
                 </form>
                 <div>
                     <label>Cart Details</label>
-                    <div id="boxList" style="width: 80%; display: flex; flex-direction: column; gap: 4px;"
-                        class="grid-item slideDown">
+                    <div id="boxList" style={{width: "80%", display: "flex", flexDirection: "column", gap: "4px"}}
+                        className="grid-item slideDown">
 
                     </div>
                 </div>
             </div>
-            <div id='main' class="p-4 grid grow border-box grid-cols-4 gap-2">
-
+            <div id='main' className="p-4 grid grow border-box grid-cols-4 gap-2">
+              <ProductBox/>
             </div>
         </div>
-</body>
-<script>
-     // Define a React functional component
-     function App() {
-        debugger
-        const [message, setMessage] = React.useState('Hello React!');
-        return React.createElement('div', null, message);
+        </div>
+    </>
+              )
     }
 
-    // Mount the React component to the DOM
-    ReactDOM.render(
-        React.createElement(App),
-        document.getElementById('headerComponent')
-    );
-
-
+     const root = ReactDOM.createRoot(document.getElementById("AppComponent"))
+     root.render(<Application/>);
+    </script>
+    <script>
     var initialCheckoutForm = {
-        first_name: '',
-        last_name: '',
+        first_name: "",
+        last_name: "",
         phone_number: 0,
-        address: '',
-        email: '',
-        postal_code: '',
-        city: '',
-        country: '',
-        payment_method: '',
+        address: "",
+        email: "",
+        postal_code: "",
+        city: "",
+        country: "",
+        payment_method: "",
         shipping_details: {
-            address: '',
-            city: '',
-            postal_code: '',
-            country: '',
-            phone_number: '',
-            reciever_name: ''
+            address: "",
+            city: "",
+            postal_code: "",
+            country: "",
+            phone_number: "",
+            reciever_name: "",
         },
-        total_amount: '',
+        total_amount: "",
         cart_details: [],
     }
     var checkoutForm = {
-        first_name: '',
-        last_name: '',
+        first_name: "",
+        last_name: "",
         phone_number: 0,
-        address: '',
-        email: '',
-        postal_code: '',
-        city: '',
-        country: '',
-        payment_method: '',
+        address: "",
+        email: "",
+        postal_code: "",
+        city: "",
+        country: "",
+        payment_method: "",
         shipping_details: {
-            address: '',
-            city: '',
-            postal_code: '',
-            country: '',
-            phone_number: '',
-            reciever_name: ''
+            address: "",
+            city: "",
+            postal_code: "",
+            country: "",
+            phone_number: "",
+            reciever_name: "",
         },
-        total_amount: '',
+        total_amount: "",
         cart_details: [],
-    }
+    };
     var products = [
         {
             id: 1,
-            name: 'water bottle',
-            description: 'color: blue size: large',
+            name: "water bottle",
+            description: "color: blue size: large",
             price: 100,
             discounted_price: 99,
         },
         {
             id: 2,
-            name: 'mouse',
-            description: 'wired usb port',
+            name: "mouse",
+            description: "wired usb port",
             price: 250,
             discounted_price: 199,
         },
         {
             id: 3,
-            name: 'watch',
-            description: 'color: black, watch type: smart, brand: apple',
+            name: "watch",
+            description: "color: black, watch type: smart, brand: apple",
             price: 5000,
             discounted_price: 4999,
         },
         {
             id: 4,
-            name: 'infinix s23',
-            description: 'color blue, storage: 120gb ram: 2gb display: 6x4',
+            name: "infinix s23",
+            description: " color blue, storage: 120gb ram: 2gb display: 6x4",
             price: 25000,
             discounted_price: 24999,
         },
         {
             id: 5,
-            name: 'shoes',
-            description: 'size: 8, color blue, type: sports wear',
+            name: "shoes",
+            description: "size: 8, color blue, type: sports wear",
             price: 3000,
             discounted_price: 3000,
         },
@@ -339,22 +436,22 @@
     renderProducts();
     function validateFields() {
         var basicFields = [
-            'first_name',
-            'last_name',
-            'address',
-            'postal_code'
-        ]
+            "first_name",
+            "last_name",
+            "address",
+            "postal_code"
+        ];
         const basicValidation = () => {
             var checkValidation = true;
             basicFields.forEach((x) => {
-                if (document.getElementById(x).value == '' || document.getElementById(x).value == null) {
+                if (document.getElementById(x).value == "" || document.getElementById(x).value == null) {
                     checkValidation = false;
-                    document.getElementById('taskErrorField-' + x).hidden = false
+                    document.getElementById("taskErrorField-"+ x).hidden = false
                 } else {
-                    document.getElementById('taskErrorField-' + x).hidden = true
+                    document.getElementById("taskErrorField-" + x).hidden = true
                 }
-            })
-            return checkValidation
+            });
+            return checkValidation;
         }
         var testBasicValidation = basicValidation();
         if (!testBasicValidation) {
@@ -477,7 +574,7 @@
                     </div>
                 </div>`;
         });
-        productDiv.innerHTML = productHtml;
+
     }
 </script>
 </html>
