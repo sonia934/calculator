@@ -78,7 +78,7 @@
   </script>
 </head>
 
-<body className="bg-blue-50 flex flex-col text-blue-600 h-svh">
+<body id="App" className ="bg-blue-400 flex flex-1 flex-col font-white text-gray-500 h-screen">
     <div id="AppComponent">
 
     </div>
@@ -86,66 +86,91 @@
 <script
    scr="https://unpkg.com/@babel/standalone@7.10.3/babel.min.js"crossorigin></script>
      <script type="text/babel" data-presets="react,stage-3" >
-        // Define a React functional component
-        const Example = () => {
-            const [count, setCount] = React.useState(0);
-            React.useEffect(() => {
-                document.title = `You Clicked ${count} times`;
-            });
-            return (
-                <div>
-                    <p>You Clicked {count} times</p>
-                    <button onClick={() => setCount(count + 1)}>
-                        click me 
-                        </button>
-                        </div>
-            );
-        };
 
-        // style becomes object, its not a string anymore,if it is string your application will not render
-        // example
-        // <div style='width:30px; heigh:30px'> this will not render in react
-        // <div style={{'width' :30px, 'flexDirection':30px}}
 
-        // class becomes className, it will remain string
-        // example
-        // <div class="px-2 py-2 w-10"> this will not render
-        // <div className="px-2 py-2 w-10">
+const Products =[
+{
+    id: 1,
+    name: 'water bottle',
+    description: 'color: blue size: large',
+    price: 100,
+    discounted_price: 99,
+},
+{
+    id: 2,
+    name: 'mouse',
+    description: 'wired usb port',
+    price: 250,
+    discounted_price: 199,
+},
+{
+    id: 3,
+    name: 'watch',
+    description: 'color: black, watch type: smart, brand: apple',
+    price: 5000,
+    discounted_price: 4999,
+},
+{
+    id: 4,
+    name: 'infinix s23',
+    description: 'color blue, storage: 120gb ram: 2gb display: 6x4',
+    price: 25000,
+    discounted_price: 24999,
+},
+{
+    id: 5,
+    name: 'shoes',
+    description: 'size: 8, color blue, type: sports wear',
+    price: 3000,
+    discounted_price: 3000,
+},
 
-            const ProductBox = ({price, discounted_price}) => {
-            const calculatePrice = discounted_price < price;
-            if(calculatePrice) {
+];
+
+       
+            const PriceBox = ({price, discounted_price}) => {
+            if (price > discounted-price) {
                 return (
-                    <div className="text-text-blue-500">
-                        <span className="text-pink-600 line-through">{price}</span>
+                    <div className='actual-price text-gray'>
+                        <span className='discounted-price line-through text-blue'>{price}</span>
                         {discounted_price}
                         </div>
                      )
                  }
                  return (
-                    <div className="text-blue-500">{price}</div>
-                 )
+                    <div className='actual-price text-gray'>{price}</div>
+                 ) 
             }
-            const  ProductBox = ({product, checkForm, updateCart, ...rest}) => {
-                const addToCart = (product) => {
-                    var currentProduct = product.find((x) => {
-                        return x.id == product;
-                    });
-                    var currentQty =Application
-                    document.getElementById("qty" + product).value == "" ||
-                    document.getElementById("qty" + product).value == null
-                    ? 1
-                    : document.getElementById("qty" + product).value;
-                    cartExistIndex = checkoutForm.cart_details.findIndex((x) => {
-                        return x.id == product;
-                     });
+            const  ProductBox = ({name, product, checkoutForm, updateCart, ...rest}) => {
+                function addToCart (productId)  {
+                    var currentQty = document.getElementById('qty'+ productId).value ==''|| ?
+                    
+                    1 : document.getElementById('qty'+productId).value;
+
+                          cartExistIndex =checkoutForm.cart_details.findIndex((x)=>{ return x.id == productId});
+
+                          var isDecimal = currentQty != math.trunc(currentQty);
+                          if   (currentQty < 1 || isDecimal) {
+                            alert('please enter valid duantity');
+                            document.getElementById('qty' + productId).value='';
+                            return false
+                          }
+ 
+                                
                      if (cartExistIndex != -1) {
-                        checkoutForm.cart_details[cartExistIndex].quantity +=
-                        parseInt(currentQty);
-                       } else {
-                        var cartItem = {
+                        checkoutForm.cart_details[cartExistIndex].quantity =
+                        parseInt(checkoutForm.cart_details[cartExistIndex].quantity)+ parseInt(currentQty);
+
+                       } else{
+                        //debugger;
+                        var cartItem ={
                             ...currentProduct,
-                            quantity: currentQty,
+                            quantity: parseInt(currentQty),
+                            totalAmount: function(){
+                            actual-price = </this>
+                            }
+                        }
+                       }
                         };
                         checkoutForm.cart_details.push(cartItem);
                        }
@@ -195,7 +220,7 @@
 
                     const ProductList = ({updateCart,  checkoutForm }) => {
       const [checkFormVal, setCheckFormVal] = React.useState(checkoutForm);
-        const products = [
+        const products  =[
 
             
             
